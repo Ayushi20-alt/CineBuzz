@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_igation"
+    app:startDestination="@id/fragmentSignin">
+
+    <fragment
+        android:id="@+id/fragmentSignin"
+        android:name="com.example.cinebuzz.fragmentSignin"
+        android:label="fragment_signin"
+        tools:layout="@layout/fragment_signin" >
+        <action
+            android:id="@+id/action_fragmentSignin_to_fragmentsignUP"
+            app:destination="@id/fragmentsignUP" />
+        <action
+            android:id="@+id/action_fragmentSignin_to_mainActivity"
+            app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_fragmentSignin_to_fragmentpreotp"
+            app:destination="@id/fragmentpreotp" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentsignUP"
+        android:name="com.example.cinebuzz.fragmentsignUP"
+        android:label="fragment_fragmentsign_u_p"
+        tools:layout="@layout/fragment_fragmentsign_u_p" >
+        <action
+            android:id="@+id/action_fragmentsignUP_to_mainActivity"
+            app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_fragmentsignUP_to_fragmentSignin"
+            app:destination="@id/fragmentSignin" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentpreotp"
+        android:name="com.example.cinebuzz.fragmentpreotp"
+        android:label="fragment_fragmentpreotp"
+        tools:layout="@layout/fragment_fragmentpreotp" >
+        <action
+            android:id="@+id/action_fragmentpreotp_to_fragmentotp"
+            app:destination="@id/fragmentotp" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentotp"
+        android:name="com.example.cinebuzz.fragmentotp"
+        android:label="fragment_fragmentotp"
+        tools:layout="@layout/fragment_fragmentotp" >
+        <action
+            android:id="@+id/action_fragmentotp_to_fragchangePass"
+            app:destination="@id/fragchangePass" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragchangePass"
+        android:name="com.example.cinebuzz.fragchangePass"
+        android:label="fragment_fragchange_pass"
+        tools:layout="@layout/fragment_fragchange_pass" >
+        <action
+            android:id="@+id/action_fragchangePass_to_fragmentSignin"
+            app:destination="@id/fragmentSignin" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.cinebuzz.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+</navigation>
