@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_fragmentpreotp_to_fragmentotp"
             app:destination="@id/fragmentotp" />
+        <argument
+            android:name="emailId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragmentotp"

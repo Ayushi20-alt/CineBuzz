@@ -39,46 +39,66 @@ class fragmentSignin : Fragment() {
         }
 
         // Retrofit Builder
-        var retrofit = Retrofit.Builder()
-            .baseUrl("https://cinebuzz-production.up.railway.app/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
 
         binding.materialButton.setOnClickListener{
-            // create interface method
+
+            val email = binding.textInputEditText1.text.toString().trim()
+            val password = binding.inputtextpassword.text.toString().trim()
+
+            if(email.isEmpty()){
+                binding.textInputEditText1.error = "Email required"
+                binding.textInputEditText1.requestFocus()
+                return@setOnClickListener
+            }
+
+            if(password.isEmpty()){
+                binding.inputPassword.error = "Password required"
+                binding.inputtextpassword.requestFocus()
+                return@setOnClickListener
+            }
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://cinebuzz-production.up.railway.app/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
             val cineservice1 = retrofit.create(cineservice1::class.java)
-            val cine1 = cine1("raju@gmail.com","iloveraju")
-            val call = cineservice1.sendData(cine1)
-
-            // networking method
+            val loginmodelclass = loginmodelclass("raju@gmail.com","iloveraju")
+            val call = cineservice1.sendData(loginmodelclass)
+                // networking method
             // callback is the interface which is implemented
-            call.enqueue(object : Callback<cine1> {
-                override fun onResponse(call: Call<cine1>, response: Response<cine1>) {
-                    val data : cine1? = response.body()
-                    if(data != null)
-                    {
-
+            call.enqueue(object : Callback<loginmodelclass> {
+                override fun onResponse(call: Call<loginmodelclass>, response: Response<loginmodelclass>) {
+                    val data: loginmodelclass? = response.body()
+                    if (response.isSuccessful()) {
+                        findNavController().navigate(R.id.action_fragmentSignin_to_mainActivity)
+                        Toast.makeText(activity, null, Toast.LENGTH_LONG)
                     }
-                    Log.d("implemented", response.raw().toString())
+                    else {
+                        when (response.code().toString()) {
+
+                            "401" -> Toast.makeText(activity, "User Unauthorized", Toast.LENGTH_LONG).show()
+                            else -> Toast.makeText(activity, null, Toast.LENGTH_LONG).show()
+                        }
+                        Log.d("implemented", response.raw().toString())
+                    }
                 }
 
-                override fun onFailure(call: Call<cine1>, t: Throwable) {
-                    Log.d("implemented","not implemneted")
+                override fun onFailure(call: Call<loginmodelclass>, t: Throwable) {
+                    Log.d("implemented","not implemented")
                 }
-            })
-            findNavController().navigate(R.id.action_fragmentSignin_to_mainActivity)
-        }
+        })
 
         // send data
 
         // performance benift hota h to free the memory and destroy the view
-
-        return binding.root
-
     }
-    override fun onDestroy() {
+    fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+        return binding.root
 }
+}
+
 

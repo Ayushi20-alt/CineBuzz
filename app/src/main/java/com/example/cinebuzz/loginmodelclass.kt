@@ -1,6 +1,6 @@
 package com.example.cinebuzz
 
- data class cine1(
+ data class loginmodelclass(
      val email: String,
      val pass: String
 )

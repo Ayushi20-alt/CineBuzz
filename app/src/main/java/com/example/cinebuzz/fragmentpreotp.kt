@@ -19,11 +19,13 @@ class fragmentpreotp : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentFragmentpreotpBinding.inflate(inflater,container,false)
 
-        binding?.Button?.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentpreotp_to_fragmentotp)
+        binding.Button.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentpreotp_to_fragmentotp, Bundle().apply {
+              putString("emailId", "ayushisingh06192002@gmail.com")
+            })
         }
 
-        return binding?.root
+        return binding.root
     }
 
 }

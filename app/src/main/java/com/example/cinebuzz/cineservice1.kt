@@ -6,9 +6,19 @@ import retrofit2.http.POST
 
 interface cineservice1 {
 
+
     @POST("login")
     fun sendData(
-       @Body cine1: cine1
-    ):Call<cine1>
+        @Body loginmodelclass: loginmodelclass,
+        ):Call<loginmodelclass>
 
+    @POST("signup")
+    fun createnew(
+        @Body signUpmodelclass: signUpmodelclass,
+    ):Call<signUpmodelclass>
+
+    @POST("otp")
+    fun otpverify(
+        @Body otpmodelclass: otpmodelclass
+    ):Call<otpmodelclass>
 }
