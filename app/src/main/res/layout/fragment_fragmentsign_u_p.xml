@@ -103,7 +103,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton1"
-            android:layout_width="336dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"

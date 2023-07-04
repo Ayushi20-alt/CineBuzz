@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.cinebuzz.databinding.FragmentFragmentotpBinding
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 class fragmentotp : Fragment() {
@@ -26,32 +25,37 @@ class fragmentotp : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentFragmentotpBinding.inflate(inflater, container, false)
+
         binding.materialButton1.setOnClickListener {
 
-            val pass = binding.textInputEditText3.text.toString().trim()
+            val otp = binding.textInputEditText3.text.toString().trim()
+            val name = requireArguments().getString("nameval").toString()
+            Log.d("importantzzz",name)
+            val email = requireArguments().getString("emailID").toString()
+            Log.d("importantzzz", email)
 
-            if (pass.isEmpty()) {
+            if (otp.isEmpty()) {
                 binding.textInputEditText3.error = "otp required"
                 binding.textInputEditText3.requestFocus()
                 return@setOnClickListener
             }
-            val retrofit = Retrofit.Builder()
-                .baseUrl("https://cinebuzz-production.up.railway.app/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            if (email != null) {
+                if (email.isEmpty()) {
+                    Toast.makeText(activity, "provide email", Toast.LENGTH_LONG)
+                }
+            }
 
-            val cineservice1 = retrofit.create(cineservice1::class.java)
-            val otpmodelclass = otpmodelclass("ayushi@gmail.com", "56784s")
-            val call = cineservice1.otpverify(otpmodelclass)
-
-            call.enqueue(object : Callback<otpmodelclass> {
+            retrofitInstance.init().otpverify(otpmodelclass(email, otp))
+            .enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
-                    call: Call<otpmodelclass>,
-                    response: Response<otpmodelclass>
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
                 ) {
-                   requireArguments().getString("emailId")
                     if (response.isSuccessful()) {
-                        findNavController().navigate(R.id.action_fragmentotp_to_fragchangePass)
+                        findNavController().navigate(R.id.action_fragmentotp_to_fragchangePass, Bundle().apply {
+                            putString("nameyaay", name)
+                            putString("emailyaay",email)
+                        })
                         Toast.makeText(activity, null, Toast.LENGTH_LONG)
                     } else {
                         when (response.code().toString()) {
@@ -68,8 +72,8 @@ class fragmentotp : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<otpmodelclass>, t: Throwable) {
-                    Log.d("implemented","not implemented")
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.d("implemented","not implemented otp")
                 }
             })
 

@@ -14,11 +14,11 @@
             android:id="@+id/action_fragmentSignin_to_fragmentsignUP"
             app:destination="@id/fragmentsignUP" />
         <action
-            android:id="@+id/action_fragmentSignin_to_mainActivity"
-            app:destination="@id/mainActivity" />
-        <action
             android:id="@+id/action_fragmentSignin_to_fragmentpreotp"
             app:destination="@id/fragmentpreotp" />
+        <action
+            android:id="@+id/action_fragmentSignin_to_activity"
+            app:destination="@id/activity" />
     </fragment>
     <fragment
         android:id="@+id/fragmentsignUP"
@@ -26,11 +26,17 @@
         android:label="fragment_fragmentsign_u_p"
         tools:layout="@layout/fragment_fragmentsign_u_p" >
         <action
-            android:id="@+id/action_fragmentsignUP_to_mainActivity"
-            app:destination="@id/mainActivity" />
-        <action
             android:id="@+id/action_fragmentsignUP_to_fragmentSignin"
             app:destination="@id/fragmentSignin" />
+        <action
+            android:id="@+id/action_fragmentsignUP_to_fragmentotp"
+            app:destination="@id/fragmentotp" />
+        <argument
+            android:name="itememail"
+            app:argType="string" />
+        <argument
+            android:name="itemname"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragmentpreotp"
@@ -38,10 +44,10 @@
         android:label="fragment_fragmentpreotp"
         tools:layout="@layout/fragment_fragmentpreotp" >
         <action
-            android:id="@+id/action_fragmentpreotp_to_fragmentotp"
-            app:destination="@id/fragmentotp" />
+            android:id="@+id/action_fragmentpreotp_to_changePassfrag"
+            app:destination="@id/changePassfrag" />
         <argument
-            android:name="emailId"
+            android:name="emailchangepass"
             app:argType="string" />
     </fragment>
     <fragment
@@ -52,6 +58,12 @@
         <action
             android:id="@+id/action_fragmentotp_to_fragchangePass"
             app:destination="@id/fragchangePass" />
+        <argument
+            android:name="emailyaay"
+            app:argType="string" />
+        <argument
+            android:name="nameyaay"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragchangePass"
@@ -59,12 +71,21 @@
         android:label="fragment_fragchange_pass"
         tools:layout="@layout/fragment_fragchange_pass" >
         <action
-            android:id="@+id/action_fragchangePass_to_fragmentSignin"
-            app:destination="@id/fragmentSignin" />
+            android:id="@+id/action_fragchangePass_to_activity"
+            app:destination="@id/activity" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePassfrag"
+        android:name="com.example.cinebuzz.ChangePassfrag"
+        android:label="fragment_change_passfrag"
+        tools:layout="@layout/fragment_change_passfrag" >
+        <action
+            android:id="@+id/action_changePassfrag_to_activity"
+            app:destination="@id/activity" />
     </fragment>
     <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.cinebuzz.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+        android:id="@+id/activity"
+        android:name="com.example.cinebuzz.Activity"
+        android:label="activity_"
+        tools:layout="@layout/activity_" />
 </navigation>

@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.cinebuzz.databinding.FragmentFragmentsignUPBinding
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class fragmentsignUP : Fragment() {
    private var _binding : FragmentFragmentsignUPBinding? = null
@@ -42,32 +41,27 @@ class fragmentsignUP : Fragment() {
                 return@setOnClickListener
             }
 
-            val retrofit = Retrofit.Builder()
-                .baseUrl("https://cinebuzz-production.up.railway.app/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-            val cineservice1 = retrofit.create(cineservice1::class.java)
-            val signUpmodelclass = signUpmodelclass("raju@gmail.com","iloveraju")
-            val call = cineservice1.createnew(signUpmodelclass)
-
-            call.enqueue(object : Callback<signUpmodelclass> {
-                override fun onResponse(call: Call<signUpmodelclass>, response: Response<signUpmodelclass>) {
+            retrofitInstance.init().createnew(signUpmodelclass(email, name))
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful()) {
-                        findNavController().navigate(R.id.action_fragmentsignUP_to_mainActivity)
-                        Toast.makeText(activity, "Sucessfull", Toast.LENGTH_LONG)
+                        findNavController().navigate(R.id.action_fragmentsignUP_to_fragmentotp, Bundle().apply {
+                            putString("emailID", email)
+                            putString("nameval", name)
+                        })
+                        Toast.makeText(activity, "Sucessfull", Toast.LENGTH_LONG).show()
                     }
                     else {
                         when (response.code().toString()) {
-                             "422" -> Toast.makeText(activity, "Unprocessed Entity", Toast.LENGTH_LONG)
-                            else -> Toast.makeText(activity, "null", Toast.LENGTH_LONG)
+                             "422" -> Toast.makeText(activity, "Unprocessed Entity", Toast.LENGTH_LONG).show()
+                            else -> Toast.makeText(activity, "null", Toast.LENGTH_LONG).show()
                         }
                         Log.d("implemented", response.raw().toString())
                     }
                 }
 
-                override fun onFailure(call: Call<signUpmodelclass>, t: Throwable) {
-                    Log.d("implemented","not implemented")
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.d("implemented","not implemented signup")
                 }
 
                  })

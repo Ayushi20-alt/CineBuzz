@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.cinebuzz.databinding.FragmentSigninBinding
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,10 +35,13 @@ class fragmentSignin : Fragment() {
             findNavController().navigate(R.id.action_fragmentSignin_to_fragmentsignUP)
         }
 
-        binding.textView2.setOnClickListener{
+        binding.textView2.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentSignin_to_fragmentpreotp)
         }
 
+        binding.temp.setOnClickListener {
+            findNavController().navigate(R.id.action_fragmentSignin_to_activity)
+        }
         // Retrofit Builder
 
         binding.materialButton.setOnClickListener{
@@ -57,21 +61,11 @@ class fragmentSignin : Fragment() {
                 return@setOnClickListener
             }
 
-            val retrofit = Retrofit.Builder()
-                .baseUrl("https://cinebuzz-production.up.railway.app/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-            val cineservice1 = retrofit.create(cineservice1::class.java)
-            val loginmodelclass = loginmodelclass("raju@gmail.com","iloveraju")
-            val call = cineservice1.sendData(loginmodelclass)
-                // networking method
-            // callback is the interface which is implemented
-            call.enqueue(object : Callback<loginmodelclass> {
-                override fun onResponse(call: Call<loginmodelclass>, response: Response<loginmodelclass>) {
-                    val data: loginmodelclass? = response.body()
+           retrofitInstance.init().sendData(loginmodelclass(email,password))
+            .enqueue(object : Callback<ResponseBody> {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful()) {
-                        findNavController().navigate(R.id.action_fragmentSignin_to_mainActivity)
+                        findNavController().navigate(R.id.action_fragmentSignin_to_activity)
                         Toast.makeText(activity, null, Toast.LENGTH_LONG)
                     }
                     else {
@@ -84,14 +78,10 @@ class fragmentSignin : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<loginmodelclass>, t: Throwable) {
-                    Log.d("implemented","not implemented")
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    Log.d("implemented","not implemented login")
                 }
         })
-
-        // send data
-
-        // performance benift hota h to free the memory and destroy the view
     }
     fun onDestroy() {
         super.onDestroy()

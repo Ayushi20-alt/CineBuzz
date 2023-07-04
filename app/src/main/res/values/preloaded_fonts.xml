@@ -3,5 +3,6 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/ribeye</item>
         <item>@font/roboto_medium</item>
+        <item>@font/ropa_sans</item>
     </array>
 </resources>
