@@ -11,4 +11,15 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="clear"><a><u>Clear All</u></a> </string>
+    <string name="privacy">In today\'s business world, companies depend heavily on data and information derived from it. Indeed, information is essential for all company employees, from the top executives to the operations level.
+
+Protecting data, especially private, personal information, is crucial in a complex world where so much depends upon it. The most important step for business owners to protect their customers\' data is to create a concise and transparent Privacy Policy.
+
+A Privacy Policy is a legal document, which informs your website\'s visitors about the data collected on them and how your company will use it.
+
+A good Privacy Policy should outline what data is being collected and explain why you\'re collecting it, who has access to it, and the time frame during which you plan to store it.
+
+It should also include any third parties with whom your company shares personal or private information, as well as any steps taken to ensure the security of such information.
+
+This article will cover the components of a good Privacy Policy.</string>
 </resources>

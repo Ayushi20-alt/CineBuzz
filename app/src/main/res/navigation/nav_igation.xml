@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentSignin"
-        android:name="com.example.cinebuzz.fragmentSignin"
+        android:name="com.example.cinebuzz.Authfragments.fragmentSignin"
         android:label="fragment_signin"
         tools:layout="@layout/fragment_signin" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentsignUP"
-        android:name="com.example.cinebuzz.fragmentsignUP"
+        android:name="com.example.cinebuzz.Authfragments.fragmentsignUP"
         android:label="fragment_fragmentsign_u_p"
         tools:layout="@layout/fragment_fragmentsign_u_p" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentpreotp"
-        android:name="com.example.cinebuzz.fragmentpreotp"
+        android:name="com.example.cinebuzz.Authfragments.fragmentpreotp"
         android:label="fragment_fragmentpreotp"
         tools:layout="@layout/fragment_fragmentpreotp" >
         <action
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentotp"
-        android:name="com.example.cinebuzz.fragmentotp"
+        android:name="com.example.cinebuzz.Authfragments.fragmentotp"
         android:label="fragment_fragmentotp"
         tools:layout="@layout/fragment_fragmentotp" >
         <action
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragchangePass"
-        android:name="com.example.cinebuzz.fragchangePass"
+        android:name="com.example.cinebuzz.Authfragments.fragchangePass"
         android:label="fragment_fragchange_pass"
         tools:layout="@layout/fragment_fragchange_pass" >
         <action
@@ -76,12 +76,15 @@
     </fragment>
     <fragment
         android:id="@+id/changePassfrag"
-        android:name="com.example.cinebuzz.ChangePassfrag"
+        android:name="com.example.cinebuzz.Authfragments.ChangePassfrag"
         android:label="fragment_change_passfrag"
         tools:layout="@layout/fragment_change_passfrag" >
         <action
             android:id="@+id/action_changePassfrag_to_activity"
             app:destination="@id/activity" />
+        <argument
+            android:name="emailprotfolio"
+            app:argType="string" />
     </fragment>
     <activity
         android:id="@+id/activity"

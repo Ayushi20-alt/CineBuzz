@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragmentSignin">
+    tools:context=".Authfragments.fragmentSignin">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SignIn">
+        tools:context=".Authfragments.SignIn">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_container_view"

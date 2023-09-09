@@ -1,30 +1,37 @@
 package com.example.cinebuzz
 
 import android.annotation.SuppressLint
-import android.net.wifi.hotspot2.pps.HomeSp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import com.example.cinebuzz.databinding.ActivityBinding
-import com.example.cinebuzz.databinding.ActivityMainBinding
+import com.example.cinebuzz.Drawerfrag.Aboutusfrag
+import com.example.cinebuzz.Drawerfrag.Privacypolicyfrag
+import com.example.cinebuzz.Homefragments.homefrag
+import com.example.cinebuzz.playerFrag.playerfrag
+import com.example.cinebuzz.profilefragParts.profilefrag
+import com.example.cinebuzz.search.searchfrag
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 
 class Activity : AppCompatActivity() {
     // hamburger sign that will open the drawer
     lateinit var toggle: ActionBarDrawerToggle
+    lateinit var drawerLayout : DrawerLayout
+    lateinit var bottomNavigationView : BottomNavigationView
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_)
+        
 
         replacefrag(homefrag())
-        var drawerLayout: DrawerLayout = findViewById(R.id.drawerLayout)
+        drawerLayout = findViewById(R.id.drawerLayout)
         var navView: NavigationView = findViewById(R.id.navigationView)
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
@@ -34,18 +41,11 @@ class Activity : AppCompatActivity() {
         supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
 
         navView.setNavigationItemSelectedListener {
+            it.isChecked = true
             when (it.itemId) {
-                R.id.AboutUs -> Toast.makeText(
-                    applicationContext,
-                    "Clicked About Us",
-                    Toast.LENGTH_SHORT
-                ).show()
+                R.id.AboutUs -> replacefrag2(Aboutusfrag(), it.title.toString())
 
-                R.id.Privacy -> Toast.makeText(
-                    applicationContext,
-                    "Clicked Privacy Policy",
-                    Toast.LENGTH_SHORT
-                ).show()
+                R.id.Privacy -> replacefrag2(Privacypolicyfrag(), it.title.toString())
 
                 R.id.Feedback -> Toast.makeText(
                     applicationContext,
@@ -68,7 +68,7 @@ class Activity : AppCompatActivity() {
         }
 
         // bootom navigation view code
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+       bottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigationView.setOnItemSelectedListener{
             when(it.itemId){
                 R.id.home -> replacefrag(homefrag())
@@ -97,6 +97,17 @@ class Activity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frame_layout, fragment)
         fragmentTransaction.commit()
+
     }
 
+    private fun replacefrag2(fragment : Fragment, title : String)
+    {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
+        fragmentTransaction.commit()
+        drawerLayout.closeDrawers()
+        bottomNavigationView.isVisible = false
+        setTitle(title)
+    }
 }

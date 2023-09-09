@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignIn"
+            android:name=".Authfragments.SignIn"
             android:exported="true"
             android:theme="@style/Theme.CineBuzz.BackgroundImageStyle" />
         <activity

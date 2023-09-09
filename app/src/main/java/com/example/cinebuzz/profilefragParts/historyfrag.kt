@@ -13,16 +13,18 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cinebuzz.R
-import com.google.android.material.color.MaterialColors.getColorStateList
+import com.example.cinebuzz.otherfiles.retrofitInstance
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class historyfrag : Fragment() {
   private lateinit var recyclerView: RecyclerView
-  private lateinit var builder: AlertDialog.Builder
   private lateinit var textView: TextView
     @SuppressLint("MissingInflatedId", "UseRequireInsteadOfGet", "ResourceType")
     override fun onCreateView(
@@ -36,22 +38,39 @@ class historyfrag : Fragment() {
         recyclerView = view.findViewById(R.id.historyrecycler)
         recyclerView.layoutManager = LinearLayoutManager(this.activity, LinearLayoutManager.VERTICAL,false)
 
-        var arrList = ArrayList<wishlistcard_data>()
-        arrList.add(wishlistcard_data(R.drawable.movie10, "My Name is Khan"))
-        arrList.add(wishlistcard_data(R.drawable.movie12, "K.G.F"))
-        arrList.add(wishlistcard_data(R.drawable.movie13, "Raajneeti"))
-        arrList.add(wishlistcard_data(R.drawable.movie6, "Avengers"))
-        arrList.add(wishlistcard_data(R.drawable.movie8, "Pulp Fiction"))
-        arrList.add(wishlistcard_data(R.drawable.movie7, "Bad Times of Lyla"))
-        arrList.add(wishlistcard_data(R.drawable.movie10, "My Name is Khan"))
-        arrList.add(wishlistcard_data(R.drawable.movie12, "K.G.F"))
-        arrList.add(wishlistcard_data(R.drawable.movie13, "Raajneeti"))
-        arrList.add(wishlistcard_data(R.drawable.movie6, "Avengers"))
-        arrList.add(wishlistcard_data(R.drawable.movie8, "Pulp Fiction"))
-        arrList.add(wishlistcard_data(R.drawable.movie7, "Bad Times of Lyla"))
+//        var arrList = ArrayList<wishlistcard_data>()
+//        arrList.add(wishlistcard_data(R.drawable.movie10, "My Name is Khan"))
+//        arrList.add(wishlistcard_data(R.drawable.movie12, "K.G.F"))
+//        arrList.add(wishlistcard_data(R.drawable.movie13, "Raajneeti"))
+//        arrList.add(wishlistcard_data(R.drawable.movie6, "Avengers"))
+//        arrList.add(wishlistcard_data(R.drawable.movie8, "Pulp Fiction"))
+//        arrList.add(wishlistcard_data(R.drawable.movie7, "Bad Times of Lyla"))
+//        arrList.add(wishlistcard_data(R.drawable.movie10, "My Name is Khan"))
+//        arrList.add(wishlistcard_data(R.drawable.movie12, "K.G.F"))
+//        arrList.add(wishlistcard_data(R.drawable.movie13, "Raajneeti"))
+//        arrList.add(wishlistcard_data(R.drawable.movie6, "Avengers"))
+//        arrList.add(wishlistcard_data(R.drawable.movie8, "Pulp Fiction"))
+//        arrList.add(wishlistcard_data(R.drawable.movie7, "Bad Times of Lyla"))
 
-        val recycleradapter = this.activity?.let { history_adapter(it, arrList) }
-        recyclerView.adapter = recycleradapter
+//        Toast.makeText(activity,"api called history", Toast.LENGTH_LONG).show()
+        retrofitInstance.init().history().enqueue(object : Callback<ResponseBody?> {
+            override fun onResponse(call: Call<ResponseBody?>, response: Response<ResponseBody?>) {
+                if(response.isSuccessful())
+                {
+                    Toast.makeText(activity,"success history", Toast.LENGTH_LONG).show()
+                }
+                else{
+                    Toast.makeText(activity,"failed more", Toast.LENGTH_LONG).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                Toast.makeText(activity,"failed",Toast.LENGTH_LONG).show()
+            }
+        })
+
+       /* val recycleradapter = this.activity?.let { history_adapter(it, arrList) }
+        recyclerView.adapter = recycleradapter*/
 
         // code for the dialoge box
 
